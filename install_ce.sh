@@ -25,7 +25,7 @@ elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
         echo Japanese Sonic The Fighters found. [NPJB00250]
         stfdir="$gamedir/NPJB00250"
     else
-    	echo Sonic The Fighters not found. Please make sure it is installed with one of the following valid serials: [NPUB30927], [NPEB00162], [NPJB00250].
+    	echo Sonic The Fighters not found. Please make sure it is installed with one of the following valid serials: [NPUB30927], [NPEB01162], [NPJB00250].
         exit
     fi
 	echo Running sanity checks...
@@ -87,7 +87,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
         echo Japanese Sonic The Fighters found. [NPJB00250]
         stfdir="$gamedir/NPJB00250"
     else
-    	echo Sonic The Fighters not found. Please make sure it is installed with one of the following valid serials: [NPUB30927], [NPEB00162], [NPJB00250].
+    	echo Sonic The Fighters not found. Please make sure it is installed with one of the following valid serials: [NPUB30927], [NPEB01162], [NPJB00250].
         exit
     fi
     if [ -d $(xcode-select --install) ]; then
