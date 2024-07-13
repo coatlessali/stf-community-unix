@@ -80,9 +80,9 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     if [ -d "$gamedir/NPUB30927" ]; then
         echo North American Sonic The Fighters found. [NPUB30927]
         stfdir="$gamedir/NPUB30927"
-    elif [ -d "$gamedir/NPEB00162" ]; then
-    	echo European Sonic The Fighters found. [NPEB00162]
-    	stfdir="$gamedir/NPEB00162" ]
+    elif [ -d "$gamedir/NPEB01162" ]; then
+    	echo European Sonic The Fighters found. [NPEB01162]
+    	stfdir="$gamedir/NPEB01162"
     elif [ -d "$gamedir/NPJB00250" ]; then
         echo Japanese Sonic The Fighters found. [NPJB00250]
         stfdir="$gamedir/NPJB00250"
