@@ -2,16 +2,31 @@ if [[ "$OSTYPE" == "freebsd"* ]]; then
     echo Why are you trying to game on FreeBSD?
     echo If you really want this, psarc can probably be compiled from source. Not sure about flips.
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    echo Ali is working on Linux support, give her time.
     echo Checking for rpcs3 path...
+    # Check for AppImage Path
 	if [ -d "/home/$USER/.config/rpcs3/dev_hdd0/game" ]; then
 	    echo Found native/AppImage rpcs3 folder\!
 	    gamedir="/home/$USER/.config/rpcs3/dev_hdd0/game"
+	# Check for Flatpak Path
 	elif [ -d "/home/$USER/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0/game" ]; then
 	    echo Found Flatpak rpcs3 folder\!
 	    gamedir="/home/$USER/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0/game"
+	# Check for Emudeck on Internal Storage
+	elif [ -d "/home/$USER/Emulation/storage/rpcs3/dev_hdd0/game" ]; then
+		echo Found Emudeck rpcs3 folder on Internal Storage\!
+		gamedir="/home/$USER/Emulation/storage/rpcs3/dev_hdd0/game"
+    # Check for Emudeck on External Storage
+    elif [ -d "/run/media/mmcblk0p1/Emulation/storage/rpcs3/dev_hdd0/game" ]; then
+   	    echo Found Emudeck rpcs3 folder on External Storage\!
+   	    gamedir="/run/media/mmcblk0p1/Emulation/storage/rpcs3/dev_hdd0/game"
 	else
-	    echo Could not find rpcs3 path. Make sure you have rpcs3 installed and have installed the PlayStation 3 firmware files.
+	    echo Could not find rpcs3 installed games folder. Make sure it is present at one of the following valid locations, and you have installed the PlayStation 3 firmware files.
+	    echo Note: Support for Emudeck is considered limited/experimental at this time.
+	    echo ""
+	    echo "/home/$USER/.config/rpcs3/dev_hdd0/game"
+	    echo "/home/$USER/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0/game"
+	    echo "/home/$USER/Emulation/storage/rpcs3/dev_hdd0/game"
+	    echo "/run/media/mmcblk0p1/Emulation/storage/rpcs3/dev_hdd0/game"
 	    exit
 	fi
     echo Checking for Sonic The Fighters...
