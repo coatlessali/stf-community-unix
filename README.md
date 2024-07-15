@@ -18,7 +18,7 @@ Unix installer for Sonic The Fighters: Community Edition
 1. Download `install_ce.sh`.
 2. Open your favorite Terminal Emulator (GNOME Terminal, Konsole, etc).
 3. Type `cd ~/Downloads/` and hit Enter.
-4. Type `chmod +X ./install_ce.sh` and hit Enter.
+4. Type `chmod +x ./install_ce.sh` and hit Enter.
 5. Type `./install_ce.sh` and hit Enter.
 6. Have fun!
 
