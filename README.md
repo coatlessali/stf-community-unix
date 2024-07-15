@@ -25,6 +25,12 @@ Unix installer for Sonic The Fighters: Community Edition
 ## FAQ
 - Q: How do I know what version I have?
 - A: The installer is rolling release and will not have a version number. You can see when updates happen [here](https://github.com/coatlessali/stf-community-unix/commits/main/).
+- Q: How do I remove CE?
+- A: In RPCS3, right click Sonic The Fighters -> Remove -> Remove HDD Game. Then reinstall your pkg file.
+- Q: How do I update?
+- A: Remove CE, and then reinstall.
+- Q: Why are you like this?
+- A: Bill Michaelsoft 4P+K > P+K > P+K > P+K > P+B'd my dog.
 
 ## credits
 psarc tool: http://ferb.fr/ps3/PSARC/psarc-0.1.3.tar.bz2 - compiled on Ubuntu 18.04
