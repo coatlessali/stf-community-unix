@@ -1,4 +1,25 @@
 #!/bin/bash
+if [[ -n "$PS3_IP" ]]; then
+	if [[ -n "$RPCS3_PATH_OVERRIDE" ]]; then
+		echo PS3_IP and RPCS3_PATH_OVERRIDE cannot be used together\!
+		exit
+	fi
+	echo Attempting to connect to PS3...
+	curl --silent "ftp://$PS3_IP/dev_hdd0/game/" || exit
+	echo Connection Established\!
+	curl --silent "ftp://$PS3_IP/dev_hdd0/game/NPEB01162/USRDIR/" && region="NPEB01162" && echo Set European Serial "[$region]".
+	curl --silent "ftp://$PS3_IP/dev_hdd0/game/NPJB00250/USRDIR/" && region="NPJB00250" && echo Set Japanese Serial "[$region]".
+	curl --silent "ftp://$PS3_IP/dev_hdd0/game/NPUB30927/USRDIR/" && region="NPUB30927" && echo Set North American Serial "[$region]".
+	echo Attempting to download rom.psarc from "$region"...
+	mkdir -p fake_dev_hdd0/game/"$region"/USRDIR
+	cd fake_dev_hdd0/game/"$region"/USRDIR || exit
+	curl -O "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom.psarc" || exit
+	echo Downloaded rom.psarc.
+	echo Overriding a few things for later in the script...
+	cd ..
+	stfdir=$(pwd)
+fi
+
 if [[ "$OSTYPE" == "freebsd"* ]]; then
 	if [[ -n "$RPCS3_PATH_OVERRIDE" ]]; then
 		echo Note: RPCS3_PATH_OVERRIDE unavailable on this platform. Continuing.
@@ -6,7 +27,9 @@ if [[ "$OSTYPE" == "freebsd"* ]]; then
     echo You must be really brave\!
     echo If you really want this, psarc can probably be compiled from source. Not sure about flips.
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-	if [[ -n "$RPCS3_PATH_OVERRIDE" ]]; then
+	if [[ -n "$PS3_IP" ]]; then
+		echo Continuing with real PS3 setup via FTP...
+	elif [[ -n "$RPCS3_PATH_OVERRIDE" ]]; then
 		echo Overriding rpcs3 path...
 		if [[ "$RPCS3_PATH_OVERRIDE" == "appimage" ]] || [[ "$RPCS3_PATH_OVERRIDE" == "native" ]]; then
 			if [ -d "/home/$USER/.config/rpcs3/dev_hdd0/game" ]; then
@@ -71,7 +94,9 @@ elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
 		fi
 	fi
     echo Checking for Sonic The Fighters...
-    if [ -d "$gamedir/NPUB30927" ]; then
+    if [[ -n "$PS3_IP" ]]; then
+    	echo StF Directory already set.
+    elif [ -d "$gamedir/NPUB30927" ]; then
         echo North American Sonic The Fighters found. "[NPUB30927]"
         stfdir="$gamedir/NPUB30927"
     elif [ -d "$gamedir/NPEB01162" ]; then
@@ -126,9 +151,10 @@ elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	echo Cleaning up...
 	rm flips
 	rm ./*.bps
-	echo Installation Complete\! Have fun\!
-	echo ...and remember: Tux Loves You\!
-	exit
+	if [[ -z "$PS3_IP" ]]; then
+		echo Installation Complete\! Have fun\!
+		echo ...and remember: Tux Loves You\!
+	fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo MacOS detected!
     if [[ -n "$RPCS3_PATH_OVERRIDE" ]]; then
@@ -136,7 +162,9 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     fi
     # Check for StF
     gamedir="/Users/$USER/Library/Application Support/rpcs3/dev_hdd0/game"
-    if [ -d "$gamedir/NPUB30927" ]; then
+    if [[ -n "$PS3_IP" ]]; then
+    	echo StF Directory already set.
+    elif [ -d "$gamedir/NPUB30927" ]; then
         echo North American Sonic The Fighters found. "[NPUB30927]"
         stfdir="$gamedir/NPUB30927"
     elif [ -d "$gamedir/NPEB01162" ]; then
@@ -199,5 +227,38 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo Cleaning up...
     rm ./*.bps
     rm cmdMultiPatch
-    echo Sonic The Fighters: Community Edition has been installed\!
+    if [[ -z "$PS3_IP" ]]; then
+    	echo Sonic The Fighters: Community Edition has been installed\!
+    fi
+fi
+
+if [[ -n "$PS3_IP" ]]; then
+    cd "$stfdir/USRDIR" || exit
+	echo Moving rom.psarc to original.psarc on real PS3...
+	curl -T original.psarc "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/"
+    curl -v "ftp://$PS3_IP/" -Q "DELE dev_hdd0/game/$region/USRDIR/rom.psarc"
+    cd rom || exit
+    # Good lird
+    curl -T fontmap.farc "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/" --ftp-create-dirs
+    curl -T string_array.farc "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/" --ftp-create-dirs
+    curl -T auth2d/aetdb.bin "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/auth2d/" --ftp-create-dirs
+    curl -T auth2d/n_advstf.farc "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/auth2d/" --ftp-create-dirs
+    curl -T auth2d/n_cmn.farc "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/auth2d/" --ftp-create-dirs
+    curl -T auth2d/n_info.farc "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/auth2d/" --ftp-create-dirs
+    curl -T auth2d/n_stf.farc "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/auth2d/" --ftp-create-dirs
+    curl -T sound/stf.acf "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/sound/" --ftp-create-dirs
+    curl -T sound/stf_all.acb "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/sound/" --ftp-create-dirs
+    curl -T sprite/n_advstf.farc "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/sprite/" --ftp-create-dirs
+    curl -T sprite/n_cmn.farc "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/sprite/" --ftp-create-dirs
+    curl -T sprite/n_fnt.farc "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/sprite/" --ftp-create-dirs
+    curl -T sprite/n_info.farc "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/sprite/" --ftp-create-dirs
+    curl -T sprite/n_stf.farc "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/sprite/" --ftp-create-dirs
+    curl -T sprite/sprdb.bin "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/sprite/" --ftp-create-dirs
+    curl -T stf_rom/rom_code1.bin "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/stf_rom/" --ftp-create-dirs
+    curl -T stf_rom/rom_data.bin "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/stf_rom/" --ftp-create-dirs
+    curl -T stf_rom/rom_ep.bin "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/stf_rom/" --ftp-create-dirs
+    curl -T stf_rom/rom_pol.bin "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/stf_rom/" --ftp-create-dirs
+    curl -T stf_rom/rom_tex.bin "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/stf_rom/" --ftp-create-dirs
+    cd ../../../../../
+    echo Installation Complete\!
 fi
