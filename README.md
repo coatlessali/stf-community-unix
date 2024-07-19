@@ -22,6 +22,16 @@ Unix installer for Sonic The Fighters: Community Edition
 5. Type `./install_ce.sh` and hit Enter.
 6. Have fun!
 
+## RPCS3_PATH_OVERRIDE Variable
+When executing the script on Linux/Steam Deck, you can override where the script checks for a valid RPCS3 installation, like so: `RPCS3_PATH_OVERRIDE=native ./install_ce.sh`.
+
+Valid values for `RPCS3_PATH_OVERRIDE` are:
+- `appimage`
+- `native`
+- `flatpak`
+- `emudeck-internal`
+- `emudeck-external` 
+
 ## FAQ
 - Q: How do I know what version I have?
 - A: The installer is rolling release and will not have a version number. You can see when updates happen [here](https://github.com/coatlessali/stf-community-unix/commits/main/).
