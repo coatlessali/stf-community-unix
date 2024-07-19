@@ -1,6 +1,9 @@
 #!/bin/bash
 if [[ "$OSTYPE" == "freebsd"* ]]; then
-    echo Why are you trying to game on FreeBSD?
+	if [[ -n "$RPCS3_PATH_OVERRIDE" ]]; then
+		echo Note: RPCS3_PATH_OVERRIDE unavailable on this platform. Continuing.
+	fi
+    echo You must be really brave\!
     echo If you really want this, psarc can probably be compiled from source. Not sure about flips.
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	if [[ -n "$RPCS3_PATH_OVERRIDE" ]]; then
@@ -128,6 +131,9 @@ elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	exit
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo MacOS detected!
+    if [[ -n "$RPCS3_PATH_OVERRIDE" ]]; then
+    	echo Note: RPCS3_PATH_OVERRIDE unavailable on this platform. Continuing.
+    fi
     # Check for StF
     gamedir="/Users/$USER/Library/Application Support/rpcs3/dev_hdd0/game"
     if [ -d "$gamedir/NPUB30927" ]; then
