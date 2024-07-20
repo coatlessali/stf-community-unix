@@ -32,6 +32,13 @@ Valid values for `RPCS3_PATH_OVERRIDE` are:
 - `emudeck-internal`
 - `emudeck-external` 
 
+## Real PS3 Install
+When executing the script on MacOS/Linux/Steam Deck, you can set the environment variable `PS3_IP` to your PS3's IP Address to install the game on your real PS3.
+
+This will require a PS3 with an FTP server already running, and the computer must be on the same network. Get the IP Address of the PS3 and plug it in like so: `PS3_IP=1.2.3.4 ./install_ce.sh`.
+
+This may be unreliable depending on your network conditions.
+
 ## FAQ
 - Q: How do I know what version I have?
 - A: The installer is rolling release and will not have a version number. You can see when updates happen [here](https://github.com/coatlessali/stf-community-unix/commits/main/).
