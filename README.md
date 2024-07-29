@@ -1,6 +1,9 @@
 # stf-community-unix
 Unix installer for Sonic The Fighters: Community Edition
 
+## Windows Notice
+This installer is **not** the same as the Windows installer, and will not work with Windows systems. You have been warned.
+
 ## Prerequisites
 - xcode (if on Mac)
 - RPCS3 installed
@@ -45,7 +48,7 @@ This may be unreliable depending on your network conditions.
 - Q: How do I remove CE?
 - A: In RPCS3, right click Sonic The Fighters -> Remove -> Remove HDD Game. Then reinstall your pkg file.
 - Q: How do I update?
-- A: Remove CE, and then reinstall.
+- A: Remove CE, then reinstall Sonic the Fighters, and *then* reinstall CE.
 - Q: Why are you like this?
 - A: Bill Michaelsoft 4P+K > P+K > P+K > P+K > P+B'd my dog.
 
