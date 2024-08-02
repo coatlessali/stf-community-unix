@@ -53,7 +53,7 @@ This may be unreliable depending on your network conditions.
 - A: Bill Michaelsoft 4P+K > P+K > P+K > P+K > P+B'd my dog.
 
 ## credits
-All CE Contributors: [CREDITS.txt](https://github.com/coatlessali/stf-community-unix/blob/main/CREDITS.txt_
+All CE Contributors: [CREDITS.txt](https://github.com/coatlessali/stf-community-unix/blob/main/CREDITS.txt)
 psarc tool: http://ferb.fr/ps3/PSARC/psarc-0.1.3.tar.bz2 - compiled on Ubuntu 18.04
 
 flips: https://github.com/Alcaro/Flips
