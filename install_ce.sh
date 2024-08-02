@@ -151,6 +151,10 @@ elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	echo Cleaning up...
 	rm flips
 	rm ./*.bps
+	echo Finalizing setup...
+	cd "$stfdir" || exit
+	echo Downloading Content Information Files...
+	curl https://raw.githubusercontent.com/coatlessali/stf-community-unix/main/cif.tar.gz | tar -xz
 	if [[ -z "$PS3_IP" ]]; then
 		echo Installation Complete\! Have fun\!
 		echo ...and remember: Tux Loves You\!
@@ -229,6 +233,9 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo Cleaning up...
     rm ./*.bps
     rm cmdMultiPatch
+    cd "$stfdir" || exit
+    echo Downloading Content Information Files...
+    curl https://raw.githubusercontent.com/coatlessali/stf-community-unix/main/cif.tar.gz | tar -xz
     if [[ -z "$PS3_IP" ]]; then
     	echo Sonic The Fighters: Community Edition has been installed\!
     	echo " "
@@ -237,10 +244,17 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 if [[ -n "$PS3_IP" ]]; then
+	cd "$stfdir" || exit
+	echo Sending Content Information Files to PS3...
+	curl -v "ftp://$PS3_IP/" -Q "DELE dev_hdd0/game/$region/ICON0.PNG"
+	curl -v "ftp://$PS3_IP/" -Q "DELE dev_hdd0/game/$region/PIC0.PNG"
+	curl -T ICON0.PNG "ftp://$PS3_IP/dev_hdd0/game/$region/" --ftp-create-dirs
+	curl -T PIC0.PNG "ftp://$PS3_IP/dev_hdd0/game/$region/" --ftp-create-dirs
     cd "$stfdir/USRDIR" || exit
-	echo Moving rom.psarc to original.psarc on real PS3...
+	echo Moving rom.psarc to original.psarc on PS3...
 	curl -T original.psarc "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/"
     curl -v "ftp://$PS3_IP/" -Q "DELE dev_hdd0/game/$region/USRDIR/rom.psarc"
+    echo Sending ROM information to PS3...
     cd rom || exit
     # Good lird
     curl -T fontmap.farc "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/" --ftp-create-dirs
