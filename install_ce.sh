@@ -154,6 +154,8 @@ elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	if [[ -z "$PS3_IP" ]]; then
 		echo Installation Complete\! Have fun\!
 		echo ...and remember: Tux Loves You\!
+		echo " "
+		curl https://raw.githubusercontent.com/coatlessali/stf-community-unix/main/CREDITS.txt
 	fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo MacOS detected!
@@ -229,6 +231,8 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     rm cmdMultiPatch
     if [[ -z "$PS3_IP" ]]; then
     	echo Sonic The Fighters: Community Edition has been installed\!
+    	echo " "
+    	curl https://raw.githubusercontent.com/coatlessali/stf-community-unix/main/CREDITS.txt
     fi
 fi
 
@@ -261,4 +265,6 @@ if [[ -n "$PS3_IP" ]]; then
     curl -T stf_rom/rom_tex.bin "ftp://$PS3_IP/dev_hdd0/game/$region/USRDIR/rom/stf_rom/" --ftp-create-dirs
     cd ../../../../../
     echo Installation Complete\!
+    echo " "
+    curl https://raw.githubusercontent.com/coatlessali/stf-community-unix/main/CREDITS.txt
 fi
