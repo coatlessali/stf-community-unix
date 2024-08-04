@@ -48,7 +48,7 @@ This may be unreliable depending on your network conditions.
 - Q: How do I remove CE?
 - A: In RPCS3, right click Sonic The Fighters -> Remove -> Remove HDD Game. Then reinstall your pkg file.
 - Q: How do I update?
-- A: Remove CE, then reinstall Sonic the Fighters, and *then* reinstall CE.
+- A: Simply rerun the script.
 - Q: Why are you like this?
 - A: Bill Michaelsoft 4P+K > P+K > P+K > P+K > P+B'd my dog.
 
