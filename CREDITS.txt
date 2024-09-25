@@ -5,8 +5,9 @@ Seek
 TDRR
 BetaRelics
 
--Mac/Unix/Linux Version-
+-Mac/Unix/Linux Version + Testing-
 coatlessali
+yeah-its-gloria
 
 -General Support & Balance Advice-
 MysticNoodle
