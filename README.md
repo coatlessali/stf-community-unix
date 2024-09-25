@@ -5,17 +5,17 @@ Unix installer for Sonic The Fighters: Community Edition
 This installer is **not** the same as the Windows installer, and will not work with Windows systems. You have been warned.
 
 ## Prerequisites
-- xcode (if on Mac)
+- MacOS 12+ / Linux with GLIBC >= Ubuntu 20.04 / SteamOS
+- ~~xcode (if on Mac)~~ This is no longer necessary as of 09/25/2024.
 - RPCS3 installed
 - Have installed and booted Sonic The Fighters at least once
 
 ## Mac Instructions
-1. Open a terminal and type `xcode-select --install` and hit Enter to make sure you have xcode installed.
-2. Download `install_ce.sh`.
-3. Open a terminal, and type `cd ~/Downloads/`, and hit Enter.
-4. Type `chmod +x ./install_ce.sh`, and hit Enter.
-5. Type `./install_ce.sh`, and hit Enter.
-6. Have fun!
+1. Download `install_ce.sh`.
+2. Open a terminal, and type `cd ~/Downloads/`, and hit Enter.
+3. Type `chmod +x ./install_ce.sh`, and hit Enter.
+4. Type `./install_ce.sh`, and hit Enter.
+5. Have fun!
 
 ## Linux/Steam Deck Instructions
 1. Download `install_ce.sh`.
@@ -51,6 +51,10 @@ This may be unreliable depending on your network conditions.
 - A: Simply rerun the script.
 - Q: Why are you like this?
 - A: Bill Michaelsoft 4P+K > P+K > P+K > P+K > P+B'd my dog.
+- Q: What is GLIBC? How do I know it's new enough?
+- A: GLIBC is the standard C library used in most (if not all) programs on Linux. You can usually run programs compiled for an old GLIBC on a new GLIBC, but not the other way around. I decided to settle on Ubuntu 20.04, as it's currently the oldest LTS version of Ubuntu in mainstream support. Any modern distro should be able to match the version of GLIBC it provides. Basically, if you don't know what this means, don't worry about it.
+- Q: Why MacOS 12?
+- A: For similar reasons to the above. You should be able to run any basic binaries compiled on MacOS 12 on anything MacOS 12+. MacOS 12 is the latest supported version of MacOS, the version I have forcefully installed on my MacBook Pro 9,2 using [Dortania OpenCore Legacy Patcher](https://dortania.github.io/OpenCore-Legacy-Patcher/), and at the time of writing is soon to go end-of-life. **RPCS3 no longer supports MacOS 12 anyways.** If you run an outdated Mac and still want to run this script i.e. for real HW installs, I'd suggest moving to Linux for not only this purpose, but also to ensure you have an up-to-date computer.
 
 ## credits
 All CE Contributors: [CREDITS.txt](https://github.com/coatlessali/stf-community-unix/blob/main/CREDITS.txt)
@@ -60,4 +64,4 @@ flips: https://github.com/Alcaro/Flips
 
 ## legal notices
 Flips is licensed under the GNU General Public License v3. You can find it's source code, as well as individual downloads at the link above.
-psarc did not come with a license. It has been provided here, precompiled and unmodified for convenience in installation on Linux systems. This was not done with the intent to infringe on the author's copyright. There is no contact information provided.
+psarc did not come with a license. It has been provided here, precompiled and unmodified for convenience in installation. This was not done with the intent to infringe on the author's copyright. There is no contact information provided.

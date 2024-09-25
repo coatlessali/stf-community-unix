@@ -233,32 +233,13 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
         exit
     fi
 
-	# Check if xcode is installed. We have to compile psarc manually.
-    if [ -d $(xcode-select --install) ]; then
-        echo xcode installed\!
-    else
-       echo Please install xcode and re-run this script afterwards...
-       xcode-select --install
-       exit
-    fi
-
-    # Download and compile psarc.
+    # Download psarc.
     echo Downloading psarc tool...
-    curl http://ferb.fr/ps3/PSARC/psarc-0.1.3.tar.bz2 -O
-    echo Extracting tarball...
-    tar -xf psarc-0.1.3.tar.bz2
-    echo Entering psarc directory...
-    cd psarc-0.1.3 || exit
-    echo Compiling...
-    make
+    curl https://raw.githubusercontent.com/coatlessali/stf-community-unix/main/psarc-macosx -o psarc
     echo Making ./psarc executable...
     chmod +x psarc
     echo Moving ./psarc into "$stfdir/USRDIR/"... 
     mv psarc "$stfdir/USRDIR/"
-    echo Exiting psarc directory...
-    cd ..
-    echo Removing psarc directory...
-    rm -rf psarc-0.1.3*
 
     echo Entering "$stfdir/USRDIR/"...
     cd "$stfdir/USRDIR/" || exit
