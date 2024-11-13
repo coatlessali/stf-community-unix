@@ -1,6 +1,9 @@
 # stf-community-unix
 Unix installer for Sonic The Fighters: Community Edition
 
+## THIS IS OSBOLETE
+Don't use this unless you really have no other way of installing CE. Use [HoneyPatcher](https://github.com/coatlessali/HoneyPatcher/) instead.
+
 ## Windows Notice
 This installer is **not** the same as the Windows installer, and will not work with Windows systems. You have been warned.
 
